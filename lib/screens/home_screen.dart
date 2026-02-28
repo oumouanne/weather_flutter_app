@@ -1,77 +1,100 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:weather_flutter_app/screens/loading_screen.dart';
+import '../services/weather_service.dart';
+import '../models/weather_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
+class _HomeScreenState extends State<HomeScreen> {
+
+  final WeatherService service = WeatherService();
+  Timer? timer;
 
   @override
   void initState() {
     super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
 
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
-
-    _controller.forward();
+    // Mise à jour automatique toutes les 30 secondes
+    timer = Timer.periodic(Duration(seconds: 30), (_) {
+      setState(() {});
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    timer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FadeTransition(
-        opacity: _animation,
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blueAccent, Colors.lightBlue],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                '🌤️ Bienvenue dans Weather App ! 🌤️',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoadingScreen(),
+      appBar: AppBar(
+        title: Text("Météo - 5 Villes"),
+        centerTitle: true,
+      ),
+      body: ListView.builder(
+        itemCount: service.cities.length,
+        itemBuilder: (context, index) {
+
+          String city = service.cities[index];
+
+          return FutureBuilder<WeatherModel>(
+            future: service.fetchWeather(city),
+            builder: (context, snapshot) {
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Card(
+                  margin: EdgeInsets.all(10),
+                  child: ListTile(
+                    title: Text(city),
+                    subtitle: Text("Chargement..."),
+                    trailing: CircularProgressIndicator(),
+                  ),
+                );
+              }
+
+              else if (snapshot.hasError) {
+                return Card(
+                  margin: EdgeInsets.all(10),
+                  child: ListTile(
+                    title: Text("❌ Impossible de récupérer les données"),
+                    trailing: IconButton(
+                      icon: Icon(Icons.refresh),
+                      onPressed: () {
+                        setState(() {});
+                      },
                     ),
-                  );
-                },
-                child: const Text('Commencer l’expérience'),
-              ),
-            ],
-          ),
-        ),
+                  ),
+                );
+              }
+
+              else if (snapshot.hasData) {
+
+                final weather = snapshot.data!;
+
+                return Card(
+                  margin: EdgeInsets.all(10),
+                  child: ListTile(
+                    title: Text(
+                      "${weather.city} - ${weather.temperature}°C",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      "${weather.condition} | Humidité: ${weather.humidity}%",
+                    ),
+                    leading: Icon(Icons.cloud),
+                  ),
+                );
+              }
+
+              return SizedBox();
+            },
+          );
+        },
       ),
     );
   }

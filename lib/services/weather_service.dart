@@ -3,11 +3,21 @@ import 'package:http/http.dart' as http;
 import '../models/weather_model.dart';
 
 class WeatherService {
-  final String apiKey = 'VOTRE_API_KEY'; // Insérer clé OpenWeatherMap
+  final String apiKey = '85f516b7d9cf2178525b074d497549f6';
   final String baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
-  Future<WeatherModel?> fetchWeather(String city) async {
-    final url = Uri.parse('$baseUrl?q=$city&appid=$apiKey&units=metric');
+  final List<String> cities = [
+    "Dakar",
+    "Paris",
+    "Dubai",
+    "New York",
+    "Tokyo"
+  ];
+
+  Future<WeatherModel> fetchWeather(String city) async {
+    final url =
+    Uri.parse('$baseUrl?q=$city&appid=$apiKey&units=metric');
+
     try {
       final response = await http.get(url);
 
@@ -15,12 +25,10 @@ class WeatherService {
         final data = jsonDecode(response.body);
         return WeatherModel.fromJson(data);
       } else {
-        print("Erreur API : ${response.statusCode}");
-        return null;
+        throw Exception("Impossible de récupérer les données");
       }
     } catch (e) {
-      print("Impossible de récupérer les données : $e");
-      return null;
+      throw Exception("Impossible de récupérer les données");
     }
   }
 }

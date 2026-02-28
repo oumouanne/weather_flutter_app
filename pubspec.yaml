@@ -12,13 +12,13 @@ dependencies:
 
   cupertino_icons: ^1.0.8
 
-  # 📡 Requête HTTP pour API météo
+  # Requête HTTP pour API météo
   http: ^1.1.0
 
-  # 🟢 Jauge circulaire animée
+  # Jauge circulaire animée
   percent_indicator: ^4.2.2
 
-  # 🗺️ Carte Google Maps
+  # Carte Google Maps
   google_maps_flutter: ^2.3.1
 
 dev_dependencies:

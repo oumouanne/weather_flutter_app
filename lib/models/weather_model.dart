@@ -14,9 +14,9 @@ class WeatherModel {
   factory WeatherModel.fromJson(Map<String, dynamic> json) {
     return WeatherModel(
       city: json['name'] ?? "Ville inconnue",
-      temperature: (json['main']['temp'] ?? 0).toDouble(),
-      condition: json['weather'][0]['main'] ?? "Inconnu",
-      humidity: json['main']['humidity'] ?? 0,
+      temperature: (json['main']?['temp'] ?? 0).toDouble(),
+      condition: json['weather']?[0]?['main'] ?? "Inconnu",
+      humidity: json['main']?['humidity'] ?? 0,
     );
   }
 }
