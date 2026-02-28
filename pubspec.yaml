@@ -1,23 +1,24 @@
 name: weather_flutter_app
-description: "A Flutter project pour l’examen L3GL ISI 2026"
+description: A Flutter project pour l’examen L3GL ISI 2026
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.10.0
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+
   cupertino_icons: ^1.0.8
 
-  # 📡 Pour récupérer les données météo depuis une API
+  # 📡 Requête HTTP pour API météo
   http: ^1.1.0
 
-  # 🟢 Pour afficher la jauge animée
+  # 🟢 Jauge circulaire animée
   percent_indicator: ^4.2.2
 
-  # 🗺️ Pour la carte interactive Google Maps
+  # 🗺️ Carte Google Maps
   google_maps_flutter: ^2.3.1
 
 dev_dependencies:
@@ -27,7 +28,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  # ⚡️ Ajoute tes icônes ou images météo ici
-  assets:
-    - assets/images/
