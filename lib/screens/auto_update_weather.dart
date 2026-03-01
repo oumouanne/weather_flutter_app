@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/weather_model.dart';
 import '../services/weather_service.dart';
 
+
 class AutoUpdateWeather extends StatefulWidget {
   const AutoUpdateWeather({super.key});
 

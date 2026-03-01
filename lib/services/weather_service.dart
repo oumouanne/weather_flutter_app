@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/weather_model.dart';
+///la partie gerée par khady dieng
 
 class WeatherService {
   final String apiKey = '85f516b7d9cf2178525b074d497549f6';

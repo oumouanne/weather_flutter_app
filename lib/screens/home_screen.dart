@@ -1,100 +1,152 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import '../services/weather_service.dart';
-import '../models/weather_model.dart';
+import 'package:provider/provider.dart';
+import '../services/weather_provider.dart';
+import 'loading_screen.dart';
+//la page d'accueil home_screen geré par Oumou Anne
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
 
-  final WeatherService service = WeatherService();
-  Timer? timer;
+  late AnimationController _controller;
+  late Animation<double> _floatAnimation;
 
   @override
   void initState() {
     super.initState();
 
-    // Mise à jour automatique toutes les 30 secondes
-    timer = Timer.periodic(Duration(seconds: 30), (_) {
-      setState(() {});
-    });
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat(reverse: true);
+
+    _floatAnimation = Tween<double>(begin: -10, end: 10).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
   }
 
   @override
   void dispose() {
-    timer?.cancel();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<WeatherProvider>(context);
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Météo - 5 Villes"),
-        centerTitle: true,
-      ),
-      body: ListView.builder(
-        itemCount: service.cities.length,
-        itemBuilder: (context, index) {
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: provider.isDarkMode
+                ? const [Color(0xFF0D1117), Color(0xFF1A237E)]
+                : const [Color(0xFF1565C0), Color(0xFF42A5F5), Color(0xFF80DEEA)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
 
-          String city = service.cities[index];
-
-          return FutureBuilder<WeatherModel>(
-            future: service.fetchWeather(city),
-            builder: (context, snapshot) {
-
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Card(
-                  margin: EdgeInsets.all(10),
-                  child: ListTile(
-                    title: Text(city),
-                    subtitle: Text("Chargement..."),
-                    trailing: CircularProgressIndicator(),
+                AnimatedBuilder(
+                  animation: _floatAnimation,
+                  builder: (context, child) {
+                    return Transform.translate(
+                      offset: Offset(0, _floatAnimation.value),
+                      child: child,
+                    );
+                  },
+                  child: const Icon(
+                    Icons.wb_sunny_rounded,
+                    size: 100,
+                    color: Colors.amber,
                   ),
-                );
-              }
+                ),
 
-              else if (snapshot.hasError) {
-                return Card(
-                  margin: EdgeInsets.all(10),
-                  child: ListTile(
-                    title: Text("❌ Impossible de récupérer les données"),
-                    trailing: IconButton(
-                      icon: Icon(Icons.refresh),
-                      onPressed: () {
-                        setState(() {});
-                      },
-                    ),
+                const SizedBox(height: 30),
+
+                const Text(
+                  "☁️ WeatherPulse",
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                );
-              }
+                ),
 
-              else if (snapshot.hasData) {
+                const SizedBox(height: 20),
 
-                final weather = snapshot.data!;
-
-                return Card(
-                  margin: EdgeInsets.all(10),
-                  child: ListTile(
-                    title: Text(
-                      "${weather.city} - ${weather.temperature}°C",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      "${weather.condition} | Humidité: ${weather.humidity}%",
-                    ),
-                    leading: Icon(Icons.cloud),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  decoration: BoxDecoration(
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                );
-              }
+                  child: const Text(
+                    "Découvrez la météo en temps réel\n"
+                        "des plus grandes villes du monde 🌍",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
 
-              return SizedBox();
-            },
-          );
-        },
+                const SizedBox(height: 40),
+
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const LoadingScreen(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.blue,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 18),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                  ),
+                  child: const Text(
+                    "Lancer l'expérience",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                TextButton.icon(
+                  onPressed: provider.toggleDarkMode,
+                  icon: Icon(
+                    provider.isDarkMode
+                        ? Icons.light_mode
+                        : Icons.dark_mode,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    provider.isDarkMode
+                        ? "Mode clair"
+                        : "Mode sombre",
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

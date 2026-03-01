@@ -9,17 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.8
-
-  # Requête HTTP pour API météo
   http: ^1.1.0
-
-  # Jauge circulaire animée
-  percent_indicator: ^4.2.2
-
-  # Carte Google Maps
+  percent_indicator: ^4.2.3
   google_maps_flutter: ^2.3.1
+  provider: ^6.1.0
+
 
 dev_dependencies:
   flutter_test:
