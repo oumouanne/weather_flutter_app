@@ -1,6 +1,6 @@
 class WeatherModel {
   final String city;
-<<<<<<< HEAD
+
   final String country;
   final double temperature;
   final String condition;
@@ -27,24 +27,13 @@ class WeatherModel {
     required this.sunset,
     required this.lat,
     required this.lon,
-    required this.visibility
-=======
-  final double temperature;
-  final String condition;
-  final int humidity;
+    required this.visibility,
 
-  WeatherModel({
-    required this.city,
-    required this.temperature,
-    required this.condition,
-    required this.humidity,
->>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
   });
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) {
     return WeatherModel(
       city: json['name'] ?? "Ville inconnue",
-<<<<<<< HEAD
       country: json['sys']['country'] ?? '',
       temperature: (json['main']?['temp'] ?? 0).toDouble(),
       condition: json['weather']?[0]?['main'] ?? "Inconnu",
@@ -67,11 +56,5 @@ class WeatherModel {
   String get capitalizedDescription =>
       description.isEmpty ? '' : description[0].toUpperCase() + description.substring(1);
 }
-=======
-      temperature: (json['main']?['temp'] ?? 0).toDouble(),
-      condition: json['weather']?[0]?['main'] ?? "Inconnu",
-      humidity: json['main']?['humidity'] ?? 0,
-    );
-  }
-}
->>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
+
+

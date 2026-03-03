@@ -16,7 +16,6 @@ class WeatherService {
   ];
 
   Future<WeatherModel> fetchWeather(String city) async {
-<<<<<<< HEAD
     final url = Uri.parse('$baseUrl?q=$city&appid=$apiKey&units=metric');
 
     final response = await http.get(url);
@@ -29,22 +28,3 @@ class WeatherService {
     }
   }
 }
-=======
-    final url =
-    Uri.parse('$baseUrl?q=$city&appid=$apiKey&units=metric');
-
-    try {
-      final response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return WeatherModel.fromJson(data);
-      } else {
-        throw Exception("Impossible de récupérer les données");
-      }
-    } catch (e) {
-      throw Exception("Impossible de récupérer les données");
-    }
-  }
-}
->>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a

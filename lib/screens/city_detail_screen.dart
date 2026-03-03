@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart'; // Carte OpenStreetMap
@@ -266,6 +265,3 @@ class _CityDetailScreenState extends State<CityDetailScreen> {
     return Icons.wb_sunny_rounded;
   }
 }
-=======
-///Daba c'est ici que doit continuer la parties restante !!!
->>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
