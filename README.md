@@ -6,7 +6,7 @@ Application Flutter météo avec jauge animée et carte interactive
 - Oumou Ann
 - Khady Dieng
 - Daba Ndiaye Faye
-
+=======
 
 A new Flutter project.
 

@@ -1,9 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <application
 
+=======
+    <application
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
         android:label="weather_flutter_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -34,10 +38,13 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+<<<<<<< HEAD
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBrzX8NjnZXt6hvuDEjt01NPJCWIsBULq8"/>
 
+=======
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

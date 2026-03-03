@@ -2,17 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Weather Flutter App</string>
+<<<<<<< HEAD
 	 <!-- Permissions localisation Google Maps -->
         <key>NSLocationWhenInUseUsageDescription</key>
         <string>Cette application a besoin de votre position pour afficher la carte</string>
 
         <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
         <string>Cette application a besoin de votre position pour afficher la carte</string>
+=======
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

@@ -76,9 +76,15 @@ class _HomeScreenState extends State<HomeScreen>
                 const SizedBox(height: 30),
 
                 const Text(
+<<<<<<< HEAD
                   "☁️ Météo en temps réel",
                   style: TextStyle(
                     fontSize: 30,
+=======
+                  "☁️ WeatherPulse",
+                  style: TextStyle(
+                    fontSize: 34,
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -129,7 +135,11 @@ class _HomeScreenState extends State<HomeScreen>
                 const SizedBox(height: 20),
 
                 TextButton.icon(
+<<<<<<< HEAD
                   onPressed: provider.toggleTheme,
+=======
+                  onPressed: provider.toggleDarkMode,
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
                   icon: Icon(
                     provider.isDarkMode
                         ? Icons.light_mode
@@ -150,4 +160,8 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a

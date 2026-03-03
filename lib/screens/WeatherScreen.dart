@@ -15,7 +15,11 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> {
   final WeatherService _service = WeatherService();
+<<<<<<< HEAD
   final List<String> _cities = ['Dakar', 'Paris', 'Dubai', 'New York', 'Tokyo'];
+=======
+  final List<String> _cities = ['Dakar', 'Paris', 'London', 'New York', 'Tokyo'];
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
 
   Map<String, WeatherModel?> _weatherData = {};
   int _currentIndex = 0;
@@ -41,7 +45,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   // Messages dynamiques
   void _startMessages() {
+<<<<<<< HEAD
     _messageTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
+=======
+    _messageTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
       if (!mounted) return;
 
       setState(() {
@@ -211,4 +219,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a

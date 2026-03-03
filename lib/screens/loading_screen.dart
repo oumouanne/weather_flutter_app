@@ -189,4 +189,8 @@ class _LoadingScreenState extends State<LoadingScreen>
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1fa7db75dc559c594d9bf2a0be2a97d550e3886a
